@@ -1,37 +1,66 @@
-import { HttpService } from '@nestjs/axios';
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import axios from 'axios'
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, NotFoundException, HttpStatus, Res } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { PostsRequest } from './dto/post.requests.dto';
 import { Posts } from './dto/post.dto'
-import { ApiTags } from '@nestjs/swagger';
-import { AxiosResponse } from 'axios'
 import { Users } from './dto/users.dto';
-import { map, Observable } from 'rxjs';
+import { Comments } from './dto/comments.dto';
 
-@ApiTags('users')
+
+
+@ApiTags('Posts')
+// @ApiBearerAuth()
+// @UseGuards(AuthGuard('jwt'))
 @Controller('posts')
 export class PostsController {
-  
-  constructor(private readonly httpService: HttpService) {}
+    
+  @Get()
+  async findAll(
+    @Res() res,
+    @Body() PostsRequest: PostsRequest
+  ): Promise<any> {
+    try {
 
-  findAll(): Observable<AxiosResponse<Posts[]>> {
-    return this.httpService.get('http://localhost:3000/cats').pipe(map((res) => res.data));
-   
+      const posts = (await axios.get<Posts[]>('https://jsonplaceholder.typicode.com/posts')).data.slice(PostsRequest.start, PostsRequest.size);;
+      const users = (await axios.get<Users[]>('https://jsonplaceholder.typicode.com/users')).data;      
+      var comments = async (post) => (await axios.get<Comments[]>(`https://jsonplaceholder.typicode.com/posts/${ post.id }/comments`)).data;
+
+      if (!posts) {
+        return res.status(HttpStatus.NOT_FOUND).json({
+          status: 404,          
+          message: 'Error: User not found!',           
+        });
+      }
+
+      const postsResponse = await Promise.all(
+        posts.map(async (post) => 
+          (
+              {
+                id: post.id,
+                title: post.title,
+                body: post.body,
+                userId: post.userId,
+                user: users.find(t2 => t2.id === post.userId), 
+                comments: [...await comments(post)]
+              }
+          )
+        )
+      ); 
+
+      return res.status(HttpStatus.OK).json({
+        status: 200,
+        data: postsResponse
+        
+      });
+
+    }
+    catch (err) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        status: 500,
+        message: 'Error: Bad Request!',        
+        err
+      });
+    }   
   }
-
-  // // @Get()
-  // // async findAll(): Promise<AxiosResponse<Posts[]>> {
-    
-
-  // //   const posts = await this.httpService.get<Posts>('https://jsonplaceholder.typicode.com/posts').pipe {
-
-  // //   })
-    
-  // //   posts.map((item) => {
-  // //     const users = await this.httpService.get<Users>('https://jsonplaceholder.typicode.com/users').filter(x=> x.)
-
-  // //   })
-    
-    
-
-  // }
-
 }
