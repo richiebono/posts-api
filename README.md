@@ -54,7 +54,7 @@ After running, you can stop the Docker container with
 ## Url Swagger for Api Documentation
 
 ```
-http://localhost:3000/api/swagge/
+http://localhost:3000/api/swagger
 ```
 
 Configure `SWAGGER_USER` and `SWAGGER_PASSWORD` in the .env file and set `NODE_ENV` to `local` or `dev`or `staging` to access the SWAGGER(Open Api) documentation with basic authentication.

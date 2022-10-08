@@ -7,22 +7,20 @@ import { Posts } from './dto/post.dto'
 import { Users } from './dto/users.dto';
 import { Comments } from './dto/comments.dto';
 
-
-
-@ApiTags('Posts')
-// @ApiBearerAuth()
-// @UseGuards(AuthGuard('jwt'))
+@ApiTags('posts')
+@ApiBearerAuth()
+@UseGuards(AuthGuard('jwt'))
 @Controller('posts')
 export class PostsController {
     
-  @Get()
+  @Post()
   async findAll(
-    @Res() res,
-    @Body() PostsRequest: PostsRequest
+    @Res() res,    
+    @Body() postsRequest: PostsRequest, 
   ): Promise<any> {
     try {
-
-      const posts = (await axios.get<Posts[]>('https://jsonplaceholder.typicode.com/posts')).data.slice(PostsRequest.start, PostsRequest.size);;
+      
+      const posts = (await axios.get<Posts[]>('https://jsonplaceholder.typicode.com/posts')).data.slice(postsRequest.start, postsRequest.size);
       const users = (await axios.get<Users[]>('https://jsonplaceholder.typicode.com/users')).data;      
       var comments = async (post) => (await axios.get<Comments[]>(`https://jsonplaceholder.typicode.com/posts/${ post.id }/comments`)).data;
 
