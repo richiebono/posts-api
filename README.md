@@ -1,6 +1,6 @@
-# NestJSApiBoilerplateJWT
+# NestJSApiJsonPlaceHolderUsingJWT
 
-An API Boilerplate to create a ready-to-use REST API in seconds with NestJS 9.x and Passport Auth JWT System :heart_eyes_cat:
+An API to consume JSON Place Holder using REST API concepts in seconds with NestJS 9.x and Passport Auth JWT System:
 
 ## Installation
 
