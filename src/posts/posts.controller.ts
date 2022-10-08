@@ -21,15 +21,16 @@ export class PostsController {
     try {
       
       const posts = (await axios.get<Posts[]>('https://jsonplaceholder.typicode.com/posts')).data.slice(postsRequest.start, postsRequest.size);
-      const users = (await axios.get<Users[]>('https://jsonplaceholder.typicode.com/users')).data;      
-      var comments = async (post) => (await axios.get<Comments[]>(`https://jsonplaceholder.typicode.com/posts/${ post.id }/comments`)).data;
-
+      
       if (!posts) {
         return res.status(HttpStatus.NOT_FOUND).json({
           status: 404,          
           message: 'Error: User not found!',           
         });
       }
+
+      const users = (await axios.get<Users[]>('https://jsonplaceholder.typicode.com/users')).data;      
+      var comments = async (post) => (await axios.get<Comments[]>(`https://jsonplaceholder.typicode.com/posts/${ post.id }/comments`)).data;
 
       const postsResponse = await Promise.all(
         posts.map(async (post) => 
