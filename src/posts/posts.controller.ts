@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, NotFoundException, HttpStatus, Res } from '@nestjs/common';
+import { Controller, Get, UseGuards, HttpStatus, Res, Query } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { PostsRequest } from './dto/post.requests.dto';
@@ -13,10 +13,10 @@ import { Comments } from './dto/comments.dto';
 @Controller('posts')
 export class PostsController {
     
-  @Post()
+  @Get()
   async findAll(
     @Res() res,    
-    @Body() postsRequest: PostsRequest, 
+    @Query() postsRequest: PostsRequest, 
   ): Promise<any> {
     try {
       
