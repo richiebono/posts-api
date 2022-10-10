@@ -120,10 +120,7 @@ describe('Posts', () => {
       ],
       controllers: [AppController],
       providers: [AppService],
-    })
-      .overrideProvider(PostsService)
-      .useValue(PostsService)
-      .compile();
+    }).compile();
 
     app = moduleRef.createNestApplication();
     await app.init();
