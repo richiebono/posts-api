@@ -42,7 +42,7 @@ export class PostsController {
       return res.status(HttpStatus.BAD_REQUEST).json({
         status: 500,
         message: 'Error: Bad Request!',        
-        err
+        // err
       });
     }   
   }

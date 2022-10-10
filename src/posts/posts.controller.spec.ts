@@ -1,16 +1,65 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 import { PostsController } from './posts.controller';
-import { postsTestModule } from './posts.test.module';
+import { PostsService } from './posts.service';
+import { getModelToken } from '@nestjs/mongoose';
 
-describe('PostsController', () => {
-  let controller: PostsController;
+import { Response } from 'express';
+import { createMock } from '@golevelup/ts-jest';
+import { PostsRequest } from './dto/post.requests.dto';
+import { mockUser, mockedpostsList } from './utils/mock'
+
+const mockResponseObject = () => {
+  return createMock<Response>({
+    json: jest.fn().mockReturnThis(),
+    status: jest.fn().mockReturnThis(),
+  });
+};
+
+describe('posts Controller', () => {
+  let postsController: PostsController;
+  let postsService: PostsService;
 
   beforeEach(async () => {
-    const module: TestingModule = await postsTestModule.compile();
-    controller = module.get<PostsController>(PostsController);
+    const moduleRef = await Test.createTestingModule({
+      controllers: [PostsController],
+      providers: [       
+        {
+          provide: getModelToken('User'),
+          useValue: {
+            new: jest.fn().mockResolvedValue(mockUser),
+            constructor: jest.fn().mockResolvedValue(mockUser),
+            findAll: jest.fn(),
+            
+          },
+        },
+        PostsService,
+        
+      ],
+    }).compile();
+
+    postsController = moduleRef.get<PostsController>(PostsController);
+    postsService = moduleRef.get<PostsService>(PostsService);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+  afterEach(() => jest.clearAllMocks());
+
+  it('should return an array of posts', async () => {
+    const response = mockResponseObject();
+
+    jest
+      .spyOn(postsService, 'findAll')
+      .mockImplementation(jest.fn().mockResolvedValueOnce(mockedpostsList));
+
+      const postsRequest = {
+        start: 0,
+        size: 1
+      } as PostsRequest;
+
+    const postsResponse = await postsController.findAll(response, postsRequest);
+    expect(response.json).toHaveBeenCalledTimes(1);
+    expect(response.json).toHaveBeenCalledWith({ status: 200, data: mockedpostsList });
+    expect(response.status).toHaveBeenCalledTimes(1);
+    expect(response.status).toHaveBeenCalledWith(200);
   });
+
 });
