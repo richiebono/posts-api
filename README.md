@@ -70,7 +70,7 @@ Install docker on windows.
 
 `$ choco install docker-cli`
 
-There is a `docker-compose.yml` file for starting MySQL with Docker.
+There is a `docker-compose.yml` file for starting mongoDB with Docker.
 
 `$ docker-compose up`
 
