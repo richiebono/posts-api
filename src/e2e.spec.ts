@@ -101,6 +101,11 @@ describe('Posts', () => {
     size: 1
   };
 
+  const mockPostsRequest404: PostsRequest = {
+    start: 0,
+    size: 0
+  };
+
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [
@@ -125,7 +130,7 @@ describe('Posts', () => {
     await app.init();
   });
 
-  it(`/GET Posts`, async () => {
+  it(`/GET Posts `, async () => {
 
     const test = await request(app.getHttpServer())
         .get('/')
@@ -145,7 +150,7 @@ describe('Posts', () => {
     // save the access token for subsequent tests
     const jwtToken = responseLogin.body.accessToken
 
-    return await request(app.getHttpServer())
+    const ok = await request(app.getHttpServer())
       .get('/posts')
       .set('Authorization', `Bearer ${jwtToken}`)
       .query(mockPostsRequest)
@@ -154,8 +159,19 @@ describe('Posts', () => {
         status: 200,
         data: PostsService.findAll(mockPostsRequest),
       });
+
+    const status400 = await request(app.getHttpServer())
+      .get('/posts')
+      .set('Authorization', `Bearer ${jwtToken}`)
+      .query(mockPostsRequest404)
+      .expect(404)
+      .expect({
+        status: 404,          
+        message: 'Error: User not found!'
+      });
       
   });
+
 
   afterAll(async () => {
     await app.close();

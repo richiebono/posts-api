@@ -24,7 +24,7 @@ export class PostsController {
       
       const posts = await this.postsService.findAll(postsRequest);
       
-      if (!posts && posts.length == 0) {
+      if (posts && posts.length == 0) {
         return res.status(HttpStatus.NOT_FOUND).json({
           status: 404,          
           message: 'Error: User not found!',           
