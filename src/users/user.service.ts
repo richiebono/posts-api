@@ -2,8 +2,7 @@ import {
   Injectable,
   NotFoundException,
   HttpException,
-  HttpStatus,
-  Inject,
+  HttpStatus
 } from '@nestjs/common';
 import { Model, Types } from 'mongoose';
 import { UserProfileDto } from './dto/user-profile.dto';
