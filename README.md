@@ -50,7 +50,11 @@ Install docker on windows.
 
 Install docker on Ubuntu.
 
+apt get update
+
 `$ sudo apt-get update`
+
+install
 
 `$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin`
 
