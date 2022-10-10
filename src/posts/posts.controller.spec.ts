@@ -1,3 +1,4 @@
+import { HttpModule } from '@nestjs/axios';
 import { Test, TestingModule } from '@nestjs/testing';
 import { PostsController } from './posts.controller';
 
@@ -6,6 +7,7 @@ describe('PostsController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [HttpModule],
       controllers: [PostsController],     
     }).compile();
 

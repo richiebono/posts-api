@@ -7,7 +7,6 @@ import { RegisterModule } from './register/register.module';
 import { UserModule } from './users/user.module';
 import * as Yup from 'yup';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Posts } from './posts/dto/post.dto';
 import { PostsModule } from './posts/posts.module';
 
 @Module({
