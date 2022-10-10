@@ -13,7 +13,6 @@ import { UserModule } from './users/user.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PostsRequest } from './posts/dto/post.requests.dto';
-import { Posts } from './posts/dto/post.dto';
 
 describe('Posts', () => {
   let app: INestApplication;
