@@ -8,6 +8,8 @@ import * as Yup from 'yup';
 import { PostsModule } from './posts/posts.module';
 import { Test, TestingModule } from '@nestjs/testing';
 import { rootMongooseTestModule } from './utils/test/mongo/mongoose.test.module';
+import { mockRequestObject } from './utils/test/mock/mock.request';
+import { User } from './users/schemas/user.model';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -38,6 +40,11 @@ describe('AppController', () => {
   describe('root', () => {
     it('should return "Hello World!"', () => {
       expect(appController.getHello()).toBe('Hello World!');
+    });
+
+    it('should return UserInfo', () => {
+      const req = mockRequestObject()
+      expect(appController.getUserInfo(req)).toStrictEqual({} as User);
     });
   });
 });

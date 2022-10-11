@@ -37,23 +37,6 @@ export class UserController {
     return this.userService.findById(userId);
   }
 
-  @Get('/:userId/profile')
-  public async getUser(
-    @Res() res,
-    @Param('userId') userId: string,
-  ): Promise<User> {
-    const user = await this.userService.findById(userId);
-
-    if (!user) {
-      throw new NotFoundException('User does not exist!');
-    }
-
-    return res.status(HttpStatus.OK).json({
-      user: user,
-      status: 200,
-    });
-  }
-
   @Put('/:userId/profile')
   public async updateProfileUser(
     @Res() res,
@@ -78,9 +61,6 @@ export class UserController {
 
   @Delete('/:id')
   public async deleteUser(@Param('id') id: string): Promise<void> {
-    const user = this.userService.deleteUser(id);
-    if (!user) {
-      throw new NotFoundException('User does not exist!');
-    }
+    return this.userService.deleteUser(id);   
   }
 }

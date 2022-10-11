@@ -2,21 +2,12 @@ import { Test } from '@nestjs/testing';
 import { PostsController } from './posts.controller';
 import { PostsService } from './posts.service';
 import { getModelToken } from '@nestjs/mongoose';
-
-import { Response } from 'express';
-import { createMock } from '@golevelup/ts-jest';
 import { PostsRequest } from './dto/post.requests.dto';
 import { mockUser, mockedPostsList } from '../utils/test/mock/mock.posts'
 import { Posts } from './dto/post.dto';
 import { postsTestModule } from './posts.test.module';
 import { HttpException, HttpStatus } from '@nestjs/common';
-
-const mockResponseObject = () => {
-  return createMock<Response>({
-    json: jest.fn().mockReturnThis(),
-    status: jest.fn().mockReturnThis(),
-  });
-};
+import { mockResponseObject } from '../utils/test/mock/mock.response';
 
 describe('posts Controller', () => {
   let postsController: PostsController;
