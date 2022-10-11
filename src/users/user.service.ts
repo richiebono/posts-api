@@ -5,7 +5,6 @@ import {
   HttpStatus
 } from '@nestjs/common';
 import { Model, Types } from 'mongoose';
-import { UserProfileDto } from './dto/user-profile.dto';
 import { User, UserDocument } from './schemas/user.model';
 import * as bcrypt from 'bcrypt';
 import { InjectModel } from '@nestjs/mongoose';
@@ -67,21 +66,6 @@ export class UserService {
       const user = await this.userRepository.findOne({ email: email });
       user.password = bcrypt.hashSync(password, 8);
 
-      return await this.userRepository.findOneAndUpdate(user as User);
-    } catch (err) {
-      throw new HttpException(err, HttpStatus.BAD_REQUEST);
-    }
-  }
-
-  public async updateProfileUser(
-    id: string,
-    userProfileDto: UserProfileDto,
-  ): Promise<User> {
-    try {
-      const user = await this.findById(id);
-      user.name = userProfileDto.name;
-      user.email = userProfileDto.email;
-      user.updated_at= new Date();;
       return await this.userRepository.findOneAndUpdate(user as User);
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);

@@ -5,7 +5,6 @@ import { userTestModule } from "./user.test.module";
 import { createMock } from '@golevelup/ts-jest';
 import { Model, Types } from 'mongoose';
 import { UserDto } from "./dto/user.dto";
-import { UserProfileDto } from "./dto/user-profile.dto";
 
 describe("UserService", () => {
   let service: UserService;
@@ -53,10 +52,6 @@ describe("UserService", () => {
 
   it("Shoud update by password.", async () => {
     expect(await service.updateByPassword(idMocked, "somePassword")).toStrictEqual(userMocked);    
-  });
-
-  it("Shoud update profile user.", async () => {
-    expect(await service.updateProfileUser(idMocked, userMocked as UserProfileDto)).toStrictEqual(userMocked);
   });
 
   it("Shoud delete user.", async () => {
