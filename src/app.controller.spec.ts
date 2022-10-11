@@ -7,7 +7,7 @@ import { UserModule } from './users/user.module';
 import * as Yup from 'yup';
 import { PostsModule } from './posts/posts.module';
 import { Test, TestingModule } from '@nestjs/testing';
-import { rootMongooseTestModule } from './utils/test/mongo/MongooseTestModule';
+import { rootMongooseTestModule } from './utils/test/mongo/mongoose.test.module';
 
 describe('AppController', () => {
   let appController: AppController;

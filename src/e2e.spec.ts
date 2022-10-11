@@ -6,7 +6,7 @@ import { UserDto } from './users/dto/user.dto';
 import { LoginDto } from './login/dto/login.dto';
 import { LoginModule } from './login/login.module';
 import { RegisterModule } from './register/register.module';
-import { rootMongooseTestModule } from './utils/test/mongo/MongooseTestModule';
+import { rootMongooseTestModule } from './utils/test/mongo/mongoose.test.module';
 import { ConfigModule } from '@nestjs/config';
 import * as Yup from 'yup';
 import { UserModule } from './users/user.module';
