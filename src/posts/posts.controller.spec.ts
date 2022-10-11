@@ -7,6 +7,9 @@ import { Response } from 'express';
 import { createMock } from '@golevelup/ts-jest';
 import { PostsRequest } from './dto/post.requests.dto';
 import { mockUser, mockedPostsList } from '../utils/test/mock/mock.posts'
+import { Posts } from './dto/post.dto';
+import { postsTestModule } from './posts.test.module';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 const mockResponseObject = () => {
   return createMock<Response>({
@@ -20,22 +23,7 @@ describe('posts Controller', () => {
   let postsService: PostsService;
 
   beforeEach(async () => {
-    const moduleRef = await Test.createTestingModule({
-      controllers: [PostsController],
-      providers: [       
-        {
-          provide: getModelToken('User'),
-          useValue: {
-            new: jest.fn().mockResolvedValue(mockUser),
-            constructor: jest.fn().mockResolvedValue(mockUser),
-            findAll: jest.fn(),
-            
-          },
-        },
-        PostsService,
-        
-      ],
-    }).compile();
+    const moduleRef = await postsTestModule.compile();
 
     postsController = moduleRef.get<PostsController>(PostsController);
     postsService = moduleRef.get<PostsService>(PostsService);
@@ -48,18 +36,43 @@ describe('posts Controller', () => {
 
     jest
       .spyOn(postsService, 'findAll')
-      .mockImplementation(jest.fn().mockResolvedValueOnce(mockedPostsList));
+      .mockImplementation(jest.fn().mockResolvedValueOnce(mockedPostsList as Posts[]));
 
       const postsRequest = {
         start: 0,
         size: 1
       } as PostsRequest;
 
-    const postsResponse = await postsController.findAll(response, postsRequest);
+    await postsController.findAll(response, postsRequest);    
     expect(response.json).toHaveBeenCalledTimes(1);
     expect(response.json).toHaveBeenCalledWith({ status: 200, data: mockedPostsList });
     expect(response.status).toHaveBeenCalledTimes(1);
     expect(response.status).toHaveBeenCalledWith(200);
+  });
+
+  it('should return an error', async () => {
+    const response = mockResponseObject();
+
+    jest
+      .spyOn(postsService, 'findAll')
+      .mockImplementation(jest.fn().mockRejectedValue(new Error("Error")));
+
+      const postsRequest = {
+        start: 0,
+        size: 1
+      } as PostsRequest;
+
+    const expectedError = { 
+      status: 500, 
+      message: 'Error: Internal Server Error!', 
+      error: new Error("Error") 
+    }
+
+    await postsController.findAll(response, postsRequest);    
+    expect(response.json).toHaveBeenCalledTimes(1);
+    expect(response.json).toHaveBeenCalledWith(expectedError);
+    expect(response.status).toHaveBeenCalledTimes(1);
+    expect(response.status).toHaveBeenCalledWith(500);
   });
 
 });

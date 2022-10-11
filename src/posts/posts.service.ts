@@ -1,8 +1,4 @@
-import {
-    Injectable,
-    HttpException,
-    HttpStatus
-  } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
   
 import axios from 'axios'
 import { Comments } from './dto/comments.dto';
@@ -15,11 +11,9 @@ import { Users } from './dto/users.dto';
     
     public async findAll(postsRequest: PostsRequest): Promise<Posts[]> {
       
-        try {
-            
-            const posts = (await axios.get<Posts[]>('https://jsonplaceholder.typicode.com/posts')).data.slice(postsRequest.start, postsRequest.size);
+        const posts = (await axios.get<Posts[]>('https://jsonplaceholder.typicode.com/posts')).data.slice(postsRequest.start, postsRequest.size);
       
-            if (!posts) {
+            if (posts.length === 0) {
                 return posts;
             }
 
@@ -40,12 +34,8 @@ import { Users } from './dto/users.dto';
                 )
                 )
             ); 
-            return postsResponse;
 
-        } catch (err) {
-            throw new HttpException(err, HttpStatus.BAD_REQUEST);
-        }
-        
+            return postsResponse;
     }   
      
   }

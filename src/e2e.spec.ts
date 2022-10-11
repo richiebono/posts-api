@@ -14,6 +14,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PostsRequest } from './posts/dto/post.requests.dto';
 import { mockedPostsList } from './utils/test/mock/mock.posts';
+import { AppModule } from './app.module';
 describe('Posts', () => {
   let app: INestApplication;
   
@@ -54,7 +55,8 @@ describe('Posts', () => {
         LoginModule,
         RegisterModule,
         UserModule,
-        PostsModule
+        PostsModule,
+        AppModule
       ],
       controllers: [AppController],
       providers: [AppService],

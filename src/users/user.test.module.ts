@@ -8,7 +8,7 @@ import { rootMongooseTestModule } from '../utils/test/mongo/mongoose.test.module
 export const userTestModule = Test.createTestingModule({
   imports: [
             rootMongooseTestModule(), 
-            MongooseModule.forFeature([{ name: User.name, schema: UserSchema }])
+            MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
           ],
   controllers: [UserController],
   providers: [UserService],

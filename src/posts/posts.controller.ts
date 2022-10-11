@@ -39,10 +39,10 @@ export class PostsController {
 
     }
     catch (err) {
-      return res.status(HttpStatus.BAD_REQUEST).json({
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         status: 500,
-        message: 'Error: Bad Request!',        
-        // err
+        message: 'Error: Internal Server Error!',        
+        error: err
       });
     }   
   }

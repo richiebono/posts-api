@@ -3,25 +3,15 @@ import { getModelToken } from '@nestjs/mongoose';
 import { PostsService } from './posts.service';
 import { mockedPostsList } from '../utils/test/mock/mock.posts';
 import { PostsRequest } from './dto/post.requests.dto';
+import { Posts } from './dto/post.dto';
+import { Comments } from './dto/comments.dto';
+import { postsTestModule } from './posts.test.module';
   
 describe('postsService', () => {
   let service: PostsService;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        PostsService,        
-        {
-          provide: getModelToken('Posts'),
-          useValue: {
-            new: jest.fn().mockResolvedValue(mockedPostsList),
-            constructor: jest.fn().mockResolvedValue(mockedPostsList),
-            findAll: jest.fn(),
-          },
-        },
-        
-      ],
-    }).compile();
+    const module: TestingModule = await postsTestModule.compile();
 
     service = module.get<PostsService>(PostsService);
   });
@@ -47,5 +37,19 @@ describe('postsService', () => {
     expect(posts).toStrictEqual(mockedPostsList);
   });
 
-  
+  it('should return empty posts', async () => {
+    jest
+      .spyOn(service, 'findAll')
+      .mockImplementationOnce(() => Promise.resolve([] as Posts[]) as any);
+
+      const postsRequest = {
+        start: 0,
+        size: 0
+      } as PostsRequest;
+
+    const posts = await service.findAll(postsRequest);
+    
+    expect(posts).toStrictEqual([]);
+  });
+    
 });
