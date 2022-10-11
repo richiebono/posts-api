@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getModelToken } from '@nestjs/mongoose';
 import { PostsService } from './posts.service';
-import { mockedpostsList } from '../utils/test/mock/mock.posts';
+import { mockedPostsList } from '../utils/test/mock/mock.posts';
 import { PostsRequest } from './dto/post.requests.dto';
   
 describe('postsService', () => {
@@ -14,8 +14,8 @@ describe('postsService', () => {
         {
           provide: getModelToken('Posts'),
           useValue: {
-            new: jest.fn().mockResolvedValue(mockedpostsList),
-            constructor: jest.fn().mockResolvedValue(mockedpostsList),
+            new: jest.fn().mockResolvedValue(mockedPostsList),
+            constructor: jest.fn().mockResolvedValue(mockedPostsList),
             findAll: jest.fn(),
           },
         },
@@ -35,7 +35,7 @@ describe('postsService', () => {
   it('should return all posts', async () => {
     jest
       .spyOn(service, 'findAll')
-      .mockImplementationOnce(() => Promise.resolve(mockedpostsList) as any);
+      .mockImplementationOnce(() => Promise.resolve(mockedPostsList) as any);
 
       const postsRequest = {
         start: 0,
@@ -44,7 +44,7 @@ describe('postsService', () => {
 
     const posts = await service.findAll(postsRequest);
 
-    expect(posts).toStrictEqual(mockedpostsList);
+    expect(posts).toStrictEqual(mockedPostsList);
   });
 
   

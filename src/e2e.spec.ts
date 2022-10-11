@@ -13,11 +13,11 @@ import { UserModule } from './users/user.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PostsRequest } from './posts/dto/post.requests.dto';
-import { mockedpostsList } from './utils/test/mock/mock.posts';
+import { mockedPostsList } from './utils/test/mock/mock.posts';
 describe('Posts', () => {
   let app: INestApplication;
   
-  let PostsService = { findAll: (postsRequest: PostsRequest) => [...mockedpostsList] };
+  let PostsService = { findAll: (postsRequest: PostsRequest) => [...mockedPostsList] };
   
   const mockUser: UserDto = {
     name: 'name',

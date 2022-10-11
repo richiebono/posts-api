@@ -22,7 +22,7 @@ export const mockUser = {
     }
   };
   
-  export const mockedpostsList = [
+  export const mockedPostsList = [
     {
       "id": 1,
       "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",

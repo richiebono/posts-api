@@ -6,7 +6,7 @@ import { getModelToken } from '@nestjs/mongoose';
 import { Response } from 'express';
 import { createMock } from '@golevelup/ts-jest';
 import { PostsRequest } from './dto/post.requests.dto';
-import { mockUser, mockedpostsList } from '../utils/test/mock/mock.posts'
+import { mockUser, mockedPostsList } from '../utils/test/mock/mock.posts'
 
 const mockResponseObject = () => {
   return createMock<Response>({
@@ -48,7 +48,7 @@ describe('posts Controller', () => {
 
     jest
       .spyOn(postsService, 'findAll')
-      .mockImplementation(jest.fn().mockResolvedValueOnce(mockedpostsList));
+      .mockImplementation(jest.fn().mockResolvedValueOnce(mockedPostsList));
 
       const postsRequest = {
         start: 0,
@@ -57,7 +57,7 @@ describe('posts Controller', () => {
 
     const postsResponse = await postsController.findAll(response, postsRequest);
     expect(response.json).toHaveBeenCalledTimes(1);
-    expect(response.json).toHaveBeenCalledWith({ status: 200, data: mockedpostsList });
+    expect(response.json).toHaveBeenCalledWith({ status: 200, data: mockedPostsList });
     expect(response.status).toHaveBeenCalledTimes(1);
     expect(response.status).toHaveBeenCalledWith(200);
   });
