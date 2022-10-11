@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getModelToken } from '@nestjs/mongoose';
 import { PostsService } from './posts.service';
-import { mockUser, mockedpostsList } from './utils/mock'
+import { mockedpostsList } from '../utils/test/mock/mock.posts';
 import { PostsRequest } from './dto/post.requests.dto';
   
 describe('postsService', () => {

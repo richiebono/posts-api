@@ -6,7 +6,7 @@ import { getModelToken } from '@nestjs/mongoose';
 import { Response } from 'express';
 import { createMock } from '@golevelup/ts-jest';
 import { PostsRequest } from './dto/post.requests.dto';
-import { mockUser, mockedpostsList } from './utils/mock'
+import { mockUser, mockedpostsList } from '../utils/test/mock/mock.posts'
 
 const mockResponseObject = () => {
   return createMock<Response>({

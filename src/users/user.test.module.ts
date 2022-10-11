@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './schemas/user.model';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
-import { rootMongooseTestModule } from '../test-utils/mongo/MongooseTestModule';
+import { rootMongooseTestModule } from '../utils/test/mongo/MongooseTestModule';
 
 export const userTestModule = Test.createTestingModule({
   imports: [

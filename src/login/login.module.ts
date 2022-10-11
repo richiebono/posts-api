@@ -8,7 +8,6 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from '../users/schemas/user.model';
-import { rootMongooseTestModule } from '../test-utils/mongo/MongooseTestModule';
 
 @Module({
   imports: [
