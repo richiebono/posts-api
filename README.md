@@ -108,3 +108,7 @@ const SWAGGER_ENVS = ['local', 'dev', 'staging'];
 ## Running tests using jest
 
 `$ npm test --  --detectOpenHandles`
+
+Check code coverage using:
+
+`$ npm run test:cov -- --detectOpenHandles`
