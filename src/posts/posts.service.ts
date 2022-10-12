@@ -11,14 +11,14 @@ import { Users } from './dto/users.dto';
     
     public async findAll(postsRequest: PostsRequest): Promise<Posts[]> {
       
-        const posts = (await axios.get<Posts[]>('https://jsonplaceholder.typicode.com/posts')).data.slice(postsRequest.start, postsRequest.size);
+        const posts = (await axios.get<Posts[]>(process.env.JSON_PLACE_HOLDER_POST_API)).data.slice(postsRequest.start, postsRequest.size);
       
             if (posts.length === 0) {
                 return posts;
             }
 
-            const users = (await axios.get<Users[]>('https://jsonplaceholder.typicode.com/users')).data;      
-            var comments = async (post) => (await axios.get<Comments[]>(`https://jsonplaceholder.typicode.com/posts/${ post.id }/comments`)).data;
+            const users = (await axios.get<Users[]>(process.env.JSON_PLACE_HOLDER_USER_API)).data;      
+            var comments = async (post) => (await axios.get<Comments[]>(`${process.env.JSON_PLACE_HOLDER_POST_API}/${ post.id }/comments`)).data;
 
             const postsResponse = await Promise.all(
                 posts.map(async (post) => 
