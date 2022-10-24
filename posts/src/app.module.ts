@@ -3,8 +3,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoginModule } from './login/login.module';
-import { RegisterModule } from './register/register.module';
-import { UserModule } from './users/user.module';
 import * as Yup from 'yup';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PostsModule } from './posts/posts.module';
@@ -12,8 +10,6 @@ import { PostsController } from './posts/posts.controller';
 import { redisStore } from 'cache-manager-redis-store';
 import { PriveteRateLimitMiddleware, PublicRateLimitMiddleware, RateLimitModule, RateLimitService } from '@richiebono/rate-limit-middleware';
 import { LoginController } from './login/login.controller';
-import { UserController } from './users/user.controller';
-import { RegisterController } from './register/register.controller';
 
 @Module({
   imports: [ 
@@ -41,8 +37,6 @@ import { RegisterController } from './register/register.controller';
       }),
     }),
     LoginModule,
-    RegisterModule,
-    UserModule,
     PostsModule,
     RateLimitModule
   ],
@@ -57,11 +51,11 @@ export class AppModule implements NestModule {
 
     consumer
       .apply(PriveteRateLimitMiddleware)
-      .forRoutes(PostsController, UserController, AppController);
+      .forRoutes(PostsController, AppController);
     
     consumer
       .apply(PublicRateLimitMiddleware)
-      .forRoutes(LoginController, RegisterController);
+      .forRoutes(LoginController);
 
     
   }
