@@ -8,7 +8,7 @@ on:
 jobs:
 
   test-user:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -22,14 +22,15 @@ jobs:
       - run: npm test --  --detectOpenHandles`
       - run: npm run test:cov -- --detectOpenHandles`
 
-  build-user:    
+  build-user:   
     runs-on: ubuntu-latest
+    needs: [test-user]
     env:
       DOCKER_REPOSITORY: richiebono
       IMAGE_NAME: users
       IMAGE_TAG: ${{github.run_number}}
-      WORKING_DIRECTORY: users
-    
+      WORKING_DIRECTORY: users   
+
     defaults:
       run:
         shell: bash
@@ -69,7 +70,6 @@ jobs:
         severity: 'MEDIUM,HIGH,CRITICAL'
 
   test-posts:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -85,6 +85,7 @@ jobs:
 
   build-posts:    
     runs-on: ubuntu-latest
+    needs: [test-posts]
     env:
       DOCKER_REPOSITORY: richiebono
       IMAGE_NAME: posts
