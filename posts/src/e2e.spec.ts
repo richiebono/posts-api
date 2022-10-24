@@ -2,19 +2,18 @@ import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
 import { PostsModule } from './posts/posts.module';
 import { INestApplication } from '@nestjs/common';
-import { UserDto } from './users/dto/user.dto';
 import { LoginDto } from './login/dto/login.dto';
 import { LoginModule } from './login/login.module';
-import { RegisterModule } from './register/register.module';
 import { rootMongooseTestModule } from './utils/test/mongo/mongoose.test.module';
 import { ConfigModule } from '@nestjs/config';
 import * as Yup from 'yup';
-import { UserModule } from './users/user.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PostsRequest } from './posts/dto/post.requests.dto';
 import { mockedPostsList } from './utils/test/mock/mock.posts';
 import { AppModule } from './app.module';
+import { UserDto } from './login/dto/user.dto';
+
 describe('Posts', () => {
   let app: INestApplication;
   
@@ -53,8 +52,6 @@ describe('Posts', () => {
         }), 
         rootMongooseTestModule(), 
         LoginModule,
-        RegisterModule,
-        UserModule,
         PostsModule,
         AppModule
       ],
@@ -72,12 +69,7 @@ describe('Posts', () => {
         .get('/')
         .expect(200)
         .expect('Hello World!');
-
-    const responseRegister = await request(app.getHttpServer())
-    .post('/auth/register/')
-    .send(mockUser)
-    .expect(200);
-    
+        
     const responseLogin = await request(app.getHttpServer())
     .post('/auth/login')
     .send(mockLoginUser)

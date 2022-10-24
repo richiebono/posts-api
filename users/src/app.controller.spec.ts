@@ -5,7 +5,6 @@ import { LoginModule } from './login/login.module';
 import { RegisterModule } from './register/register.module';
 import { UserModule } from './users/user.module';
 import * as Yup from 'yup';
-import { PostsModule } from './posts/posts.module';
 import { Test, TestingModule } from '@nestjs/testing';
 import { rootMongooseTestModule } from './utils/test/mongo/mongoose.test.module';
 import { mockRequestObject } from './utils/test/mock/mock.request';
@@ -27,8 +26,7 @@ describe('AppController', () => {
         rootMongooseTestModule(),
         LoginModule,
         RegisterModule,
-        UserModule,
-        PostsModule
+        UserModule
       ],
       controllers: [AppController],
       providers: [AppService],

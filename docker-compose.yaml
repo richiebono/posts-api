@@ -1,6 +1,6 @@
 version: '3.3'
 
-services:
+services: 
 
   mongodb:
     image: mongo
@@ -40,6 +40,31 @@ services:
       - 6379:6379
     volumes:
       - redis:/data
+
+  users:
+    image: richiebono/users:latest
+    container_name: users
+    build: ./users
+    ports:
+      - "3000:3000"   
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+    depends_on:
+      - mongodb
+      - redis
+
+  posts:
+    image: richiebono/posts:latest
+    container_name: posts
+    build: ./posts
+    ports:
+      - "3001:3001"
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+    depends_on:
+      - mongodb
+      - redis
+      - users
 
 volumes:
   mongodb_data_volume:

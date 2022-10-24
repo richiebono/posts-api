@@ -1,13 +1,10 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoginModule } from './login/login.module';
 import { RegisterModule } from './register/register.module';
 import { UserModule } from './users/user.module';
 import * as Yup from 'yup';
-import { MongooseModule } from '@nestjs/mongoose';
-import { PostsModule } from './posts/posts.module';
 import { Test } from '@nestjs/testing';
 import { TestingModule } from "@nestjs/testing";
 import { rootMongooseTestModule } from './utils/test/mongo/mongoose.test.module';
@@ -28,8 +25,7 @@ describe("UserService", () => {
         rootMongooseTestModule(), 
         LoginModule,
         RegisterModule,
-        UserModule,
-        PostsModule
+        UserModule
       ],
       controllers: [AppController],
       providers: [AppService]
