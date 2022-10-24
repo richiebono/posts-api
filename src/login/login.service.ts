@@ -50,7 +50,6 @@ export class LoginService {
         };
 
         const accessToken = this.jwtService.sign(payload);
-
         return {
           expiresIn: 3600,
           accessToken: accessToken,
