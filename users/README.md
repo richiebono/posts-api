@@ -1,6 +1,6 @@
-# NestJSApiJsonPlaceHolderUsingJWT
+# NestJSApiUsers
 
-An API to consume JSON Place Holder using REST API concepts in seconds with NestJS 9.x and Passport Auth JWT System:
+An API to Provide users and authentication:
 
 ## Installation
 
@@ -41,43 +41,6 @@ https://docs.docker.com/get-started/
     # production mode
     $ npm run start:prod
 ```
-
-## Docker
-
-Install docker on windows.
-
-`$ choco install docker-cli`
-
-Install docker on Ubuntu.
-
-apt get update
-
-`$ sudo apt-get update`
-
-install
-
-`$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin`
-
-Start it
-
-`$ sudo systemctl start docker`
-
-Install docker on Mac with Brew
-
-`$ brew install --cask docker`
-
-Install docker on windows.
-
-`$ choco install docker-cli`
-
-There is a `docker-compose.yml` file for starting mongoDB with Docker.
-
-`$ docker-compose up`
-
-After running, you can stop the Docker container with
-
-`$ docker-compose down`
-
 
 ## Url Swagger for Api Documentation
 

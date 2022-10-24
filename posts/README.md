@@ -45,7 +45,7 @@ https://docs.docker.com/get-started/
 ## Url Swagger for Api Documentation
 
 ```
-http://localhost:3000/api/swagger
+http://localhost:3001/api/swagger
 ```
 
 Configure `SWAGGER_USER` and `SWAGGER_PASSWORD` in the .env file and set `NODE_ENV` to `local` or `dev`or `staging` to access the SWAGGER(Open Api) documentation with basic authentication.
@@ -65,7 +65,7 @@ const SWAGGER_ENVS = ['local', 'dev', 'staging'];
 ## Configuring the NODE_API_PORT environment variable as the default port if you don't want to use the default
 
 ```
-   NODE_API_PORT=3000 
+   NODE_API_PORT=3001
 ```
 
 ## Running tests using jest
