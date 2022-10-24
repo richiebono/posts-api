@@ -19,8 +19,8 @@ jobs:
         with:
           node-version: '16.x'  
       - run: npm ci
-      - run: npm test --  --detectOpenHandles`
-      - run: npm run test:cov -- --detectOpenHandles`
+      - run: npm test --  --detectOpenHandles
+      - run: npm run test:cov -- --detectOpenHandles
 
   build-user:   
     runs-on: ubuntu-latest
@@ -80,8 +80,9 @@ jobs:
         with:
           node-version: '16.x'  
       - run: npm ci
-      - run: npm test --  --detectOpenHandles`
-      - run: npm run test:cov -- --detectOpenHandles`
+      - run: npm run build
+      - run: npm test --  --detectOpenHandles
+      - run: npm run test:cov -- --detectOpenHandles
 
   build-posts:    
     runs-on: ubuntu-latest
