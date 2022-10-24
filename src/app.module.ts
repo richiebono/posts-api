@@ -10,22 +10,22 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { PostsModule } from './posts/posts.module';
 import { PostsController } from './posts/posts.controller';
 import { redisStore } from 'cache-manager-redis-store';
-import { PriveteRateLimitMiddleware, PublicRateLimitMiddleware } from '@richiebono/rate-limit-middleware';
+import { PriveteRateLimitMiddleware, PublicRateLimitMiddleware, RateLimitModule, RateLimitService } from '@richiebono/rate-limit-middleware';
 import { LoginController } from './login/login.controller';
 import { UserController } from './users/user.controller';
 import { RegisterController } from './register/register.controller';
 
 @Module({
-  imports: [
+  imports: [ 
     CacheModule.register({
       // @ts-ignore
       store: async () => await redisStore({
         socket: {
-          host: 'localhost',
-          port: 6379,
+          host: process.env.REDIS_HOST,
+          port: parseInt(process.env.REDIS_PORT),
         }
       })
-    }),
+    }),   
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env', '.env.dev', '.env.stage', '.env.prod'],
@@ -43,10 +43,11 @@ import { RegisterController } from './register/register.controller';
     LoginModule,
     RegisterModule,
     UserModule,
-    PostsModule
+    PostsModule,
+    RateLimitModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, RateLimitService],
 })
 
 // export class AppModule {}
