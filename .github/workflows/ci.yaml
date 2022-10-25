@@ -6,14 +6,12 @@ on:
       - main
 
 jobs:
-
-  test:
-    
+  test:    
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: '.'
-        
+
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -25,7 +23,7 @@ jobs:
 
   build:   
     runs-on: ubuntu-latest
-    needs: [test-user]
+    needs: [test]
     env:
       DOCKER_REPOSITORY: richiebono
       IMAGE_NAME: users
