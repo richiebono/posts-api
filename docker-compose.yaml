@@ -41,30 +41,20 @@ services:
     volumes:
       - redis:/data
 
-  users:
-    image: richiebono/users:latest
-    container_name: users
-    build: ./users
+  posts-api:
+    container_name: posts-api
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: development
+    env_file:
+    - .env.development
+    command: npm run start
     ports:
-      - "3000:3000"   
-    extra_hosts:
-      - "host.docker.internal:172.17.0.1"
+      - "3000:3000"
     depends_on:
       - mongodb
       - redis
-
-  posts:
-    image: richiebono/posts:latest
-    container_name: posts
-    build: ./posts
-    ports:
-      - "3001:3001"
-    extra_hosts:
-      - "host.docker.internal:172.17.0.1"
-    depends_on:
-      - mongodb
-      - redis
-      - users
 
 volumes:
   mongodb_data_volume:
