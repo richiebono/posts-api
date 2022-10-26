@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     path: deployments/posts
-    repoURL: https://github.com/richiebono/posts.git
+    repoURL: https://github.com/richiebono/posts-api.git
     targetRevision: HEAD
     helm:
       valueFiles:

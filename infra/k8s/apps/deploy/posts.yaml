@@ -22,7 +22,7 @@ spec:
         language: TypeScript
     spec:
       containers:
-        - image: richiebono/posts:latest
+        - image: richiebono/posts-api:latest
           imagePullPolicy: Always
           resources:
             requests:
