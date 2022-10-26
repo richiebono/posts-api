@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: posts
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    path: deployments/posts
+    repoURL: https://github.com/richiebono/posts-api.git
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values-kong.yaml
+  destination:
+    namespace: posts
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true

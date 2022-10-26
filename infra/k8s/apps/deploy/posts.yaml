@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    version: v1
+    app: posts
+  name: posts
+  namespace: posts
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: posts
+  template:
+    metadata:
+      labels:
+        app: posts
+        version: v1
+        stack: echo
+        interface: rest-api
+        language: TypeScript
+    spec:
+      containers:
+        - image: richiebono/posts-api:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "5Mi"
+              cpu: "100m"
+            limits:
+              memory: "10Mi"
+              cpu: "200m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 9999
+              scheme: HTTP
+            initialDelaySeconds: 1
+          name: posts
+          ports:
+            - containerPort: 9999
+              name: http
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 9999
+              scheme: HTTP
+            initialDelaySeconds: 1
+          volumeMounts:
+            - name: posts-volume
+              mountPath: /home/node/app/.env
+              subPath: .env
+      volumes:
+        - name: posts-volume
+          configMap:
+            name: posts-conf
+            items:
+              - key: env
+                path: .env

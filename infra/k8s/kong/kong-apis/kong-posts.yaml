@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: posts
+  annotations:
+    kubernetes.io/ingress.class: "kong"
+    konghq.com/override: do-not-preserve-host
+    konghq.com/plugins: oidc-posts,rl-by-header,prometheus-posts
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /api/posts
+            pathType: Prefix
+            backend:
+              service:
+                name: posts
+                port:
+                  number: 9999
