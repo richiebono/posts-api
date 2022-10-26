@@ -1,13 +1,12 @@
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { LoginModule } from './login/login.module';
 import * as Yup from 'yup';
 import { PostsModule } from './posts/posts.module';
 import { Test, TestingModule } from '@nestjs/testing';
 import { rootMongooseTestModule } from './utils/test/mongo/mongoose.test.module';
 import { mockRequestObject } from './utils/test/mock/mock.request';
-import { UserDto } from './login/dto/user.dto';
+import { LoginModule, UserDto } from '@richiebono/users-api';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -40,7 +39,7 @@ describe('AppController', () => {
 
     it('should return UserInfo', () => {
       const req = mockRequestObject()
-      expect(appController.getUserInfo(req)).toStrictEqual({} as UserDto);
+      expect(appController.getUserInfo(req)).toEqual( { email: "", name: ""} as UserDto );
     });
   });
 });

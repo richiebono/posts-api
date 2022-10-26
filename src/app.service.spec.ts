@@ -1,12 +1,12 @@
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { LoginModule } from './login/login.module';
 import * as Yup from 'yup';
 import { PostsModule } from './posts/posts.module';
 import { Test } from '@nestjs/testing';
 import { TestingModule } from "@nestjs/testing";
 import { rootMongooseTestModule } from './utils/test/mongo/mongoose.test.module';
+import { LoginModule } from '@richiebono/users-api';
 
 describe("UserService", () => {
   let service: AppService;

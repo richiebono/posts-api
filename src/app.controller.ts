@@ -16,7 +16,7 @@ export class AppController {
   @UseGuards(AuthGuard('jwt'))
   @Get('/user/me')
   getUserInfo(@Request() req) {
-    return req.user
+    return { name: req.user.user.name, email: req.user.user.email} ;
   }
   
 }
