@@ -29,7 +29,7 @@ jobs:
       DOCKER_REPOSITORY: richiebono
       IMAGE_NAME: posts-api
       IMAGE_TAG: ${{github.run_number}}
-      WORKING_DIRECTORY: ./src   
+      WORKING_DIRECTORY: .
 
     defaults:
       run:
