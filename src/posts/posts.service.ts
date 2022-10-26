@@ -13,29 +13,29 @@ import { Users } from './dto/users.dto';
       
         const posts = (await axios.get<Posts[]>(process.env.JSON_PLACE_HOLDER_POST_API)).data.slice(postsRequest.start, postsRequest.size);
       
-            if (posts.length === 0) {
-                return posts;
-            }
+        if (posts.length === 0) {
+            return posts;
+        }
 
-            const users = (await axios.get<Users[]>(process.env.JSON_PLACE_HOLDER_USER_API)).data;      
-            var comments = async (post) => (await axios.get<Comments[]>(`${process.env.JSON_PLACE_HOLDER_POST_API}/${ post.id }/comments`)).data;
+        const users = (await axios.get<Users[]>(process.env.JSON_PLACE_HOLDER_USER_API)).data;      
+        var comments = async (post) => (await axios.get<Comments[]>(`${process.env.JSON_PLACE_HOLDER_POST_API}/${ post.id }/comments`)).data;
 
-            const postsResponse = await Promise.all(
-                posts.map(async (post) => 
-                (
-                    {
-                        id: post.id,
-                        title: post.title,
-                        body: post.body,
-                        userId: post.userId,
-                        user: users.find(t2 => t2.id === post.userId), 
-                        comments: [...await comments(post)]
-                    }
-                )
-                )
-            ); 
+        const postsResponse = await Promise.all(
+            posts.map(async (post) => 
+            (
+                {
+                    id: post.id,
+                    title: post.title,
+                    body: post.body,
+                    userId: post.userId,
+                    user: users.find(t2 => t2.id === post.userId), 
+                    comments: [...await comments(post)]
+                }
+            )
+            )
+        ); 
 
-            return postsResponse;
+        return postsResponse;
     }   
      
   }

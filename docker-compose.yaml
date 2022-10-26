@@ -33,9 +33,9 @@ services:
     depends_on:
       - mongodb
 
-  redis:
+  redis-rate-limit:
     image: redis
-    container_name: redis
+    container_name: redis-rate-limit
     ports:
       - 6379:6379
     volumes:
@@ -48,13 +48,13 @@ services:
       context: .
       target: development
     env_file:
-    - .env.development
+    - .env.local
     command: npm run start
     ports:
       - "3000:3000"
     depends_on:
       - mongodb
-      - redis
+      - redis-rate-limit
 
 volumes:
   mongodb_data_volume:
