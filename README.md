@@ -63,11 +63,11 @@ Install docker on windows.
 
 There is a `docker-compose.yml` file for starting mongoDB with Docker.
 
-`$ docker-compose up`
+`$ docker compose up`
 
 After running, you can stop the Docker container with
 
-`$ docker-compose down`
+`$ docker compose down`
 
 
 ## Url Swagger for Api Documentation
