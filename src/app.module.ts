@@ -9,7 +9,7 @@ import { PostsModule } from './posts/posts.module';
 import { PostsController } from './posts/posts.controller';
 
 import { PriveteRateLimitMiddleware, PublicRateLimitMiddleware, RateLimitModule, RateLimitService, configureRateLimitCacheModule } from '@richiebono/rate-limit-middleware';
-import { LoginController, LoginModule, RegisterModule } from '@richiebono/users-api';
+import { LoginController, LoginModule, RegisterController, RegisterModule } from '@richiebono/users-api';
 import { HealthModule } from './health/health.module';
 import { HttpModule } from '@nestjs/axios';
 
@@ -53,7 +53,7 @@ export class AppModule implements NestModule {
 
     consumer
       .apply(PublicRateLimitMiddleware)
-      .forRoutes(LoginController);  
+      .forRoutes(LoginController, RegisterController);  
         
   }
 }

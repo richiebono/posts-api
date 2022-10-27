@@ -1,6 +1,6 @@
 # NestJSApiJsonPlaceHolderUsingJWT
 
-An API to consume JSON Place Holder using REST API concepts in seconds with NestJS 9.x and Passport Auth JWT System:
+An API to consume JSON Place Holder using REST API concepts in seconds with NestJS 9.x and Passport Auth JWT System and Rate Limit.
 
 ## Installation
 
