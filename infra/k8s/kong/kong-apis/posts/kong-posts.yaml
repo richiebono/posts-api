@@ -16,4 +16,4 @@ spec:
               service:
                 name: posts
                 port:
-                  number: 9999
+                  number: 3000

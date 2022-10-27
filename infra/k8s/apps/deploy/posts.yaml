@@ -34,18 +34,18 @@ spec:
           livenessProbe:
             httpGet:
               path: /health
-              port: 9999
+              port: 3000
               scheme: HTTP
             initialDelaySeconds: 1
           name: posts
           ports:
-            - containerPort: 9999
+            - containerPort: 3000
               name: http
               protocol: TCP
           readinessProbe:
             httpGet:
               path: /health
-              port: 9999
+              port: 3000
               scheme: HTTP
             initialDelaySeconds: 1
           volumeMounts:
