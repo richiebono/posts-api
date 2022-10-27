@@ -42,6 +42,7 @@ async function bootstrap() {
       .setVersion('1.0')
       .addBearerAuth()
       .addTag('auth')
+      .addTag('health')
       .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('/api/swagger', app, document);
