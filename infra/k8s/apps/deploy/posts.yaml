@@ -33,7 +33,7 @@ spec:
               cpu: "200m"
           livenessProbe:
             httpGet:
-              path: /health
+              path: /api/health
               port: 3000
               scheme: HTTP
             initialDelaySeconds: 1
@@ -44,7 +44,7 @@ spec:
               protocol: TCP
           readinessProbe:
             httpGet:
-              path: /health
+              path: /api/health
               port: 3000
               scheme: HTTP
             initialDelaySeconds: 1
