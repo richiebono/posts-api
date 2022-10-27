@@ -41,20 +41,20 @@ services:
     volumes:
       - redis:/data
 
-  posts-api:
-    container_name: posts-api
-    build:
-      dockerfile: Dockerfile
-      context: .
-      target: development
-    env_file:
-    - .env.local
-    command: npm run start
-    ports:
-      - "3000:3000"
-    depends_on:
-      - mongodb
-      - redis-rate-limit
+  # posts-api:
+  #   container_name: posts-api
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: .
+  #     target: development
+  #   env_file:
+  #   - .env.local
+  #   command: npm run start
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - mongodb
+  #     - redis-rate-limit
 
 volumes:
   mongodb_data_volume:

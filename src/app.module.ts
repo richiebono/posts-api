@@ -11,6 +11,7 @@ import { PostsController } from './posts/posts.controller';
 import { PriveteRateLimitMiddleware, PublicRateLimitMiddleware, RateLimitModule, RateLimitService, configureRateLimitCacheModule } from '@richiebono/rate-limit-middleware';
 import { LoginController, LoginModule, RegisterModule } from '@richiebono/users-api';
 import { HealthModule } from './health/health.module';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [ 
@@ -33,7 +34,8 @@ import { HealthModule } from './health/health.module';
     RegisterModule,
     PostsModule,
     RateLimitModule,
-    HealthModule
+    HealthModule,
+    HttpModule
   ],
   controllers: [AppController],
   providers: [AppService, RateLimitService],
