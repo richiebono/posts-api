@@ -1,5 +1,5 @@
 /* istanbul ignore file */ 
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -10,6 +10,7 @@ import { PostsController } from './posts/posts.controller';
 
 import { PriveteRateLimitMiddleware, PublicRateLimitMiddleware, RateLimitModule, RateLimitService, configureRateLimitCacheModule } from '@richiebono/rate-limit-middleware';
 import { LoginController, LoginModule, RegisterModule } from '@richiebono/users-api';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [ 
@@ -31,7 +32,8 @@ import { LoginController, LoginModule, RegisterModule } from '@richiebono/users-
     LoginModule,
     RegisterModule,
     PostsModule,
-    RateLimitModule
+    RateLimitModule,
+    HealthModule
   ],
   controllers: [AppController],
   providers: [AppService, RateLimitService],
@@ -42,6 +44,9 @@ export class AppModule implements NestModule {
     
     consumer
       .apply(PriveteRateLimitMiddleware)
+      .exclude(
+        { path: 'api', method: RequestMethod.GET },
+      )
       .forRoutes(PostsController, AppController);    
 
     consumer
