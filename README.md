@@ -61,7 +61,7 @@ Install docker on windows.
 
 ## Running the app
 
-There is a `docker-compose.yml` file for starting mongoDB with Docker.
+There is a `docker-compose.yml` file for starting mongoDB and Redis with Docker.
 
 `$ docker compose up`
 
